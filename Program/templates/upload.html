@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <title>Homepage</title>
+     </head>
+   <!-- <body>
+      <form action = "http://localhost:5000/success" method = "POST" 
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file" />
+         <input type = "submit"/>
+      </form>
+   </body> -->
+    <body>
+      <img src="{{ url_for('static', filename = 'header.jpg')}}" class="img-fluid" alt="Tidak ditemukan dokumen">
+      <br>
+      <br>
+      <form form action = "http://localhost:5000/success" method = "post" enctype = "multipart/form-data" class="form-inline">
+         <!-- <div class="form-group mb-2">
+           <label for="staticEmail2" class="sr-only">Email</label>
+           <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
+         </div> -->
+         <div class="form-group mx-sm-3 mb-2">
+            <input type="file" accept=".txt" class="form-control" name="file">
+         </div>
+         <button type="submit" name="submit" class="btn btn-dark mb-2">Upload</button>
+       </form>
+       <br>
+       <div class="form-group mx-sm-3 mb-2">
+           <a class="btn btn-outline-warning" href="http://localhost:5000/" role="button">Kembali</a>
+        </div>
+   </body>
+</html>

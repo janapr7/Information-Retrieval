@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Gugel</title>
+  </head>
+  <body>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+    <!-- <button type="button" class="btn btn-dark"><a href="score.html">ke Halaman Pencarian</a></button> -->
+    <!-- <button type="button" class="btn btn-dark btn-lg btn-block">ke Halaman Pencarian</button>
+    <button type="button" class="btn btn-dark btn-lg btn-block"><a href="score.html">ke Halaman Pencarian</a></button> -->
+    <a href="http://localhost:5000/" class="btn btn-info btn-lg active btn-block" role="button" aria-pressed="true">ke Halaman Pencarian</a>
+    
+    <h1>HASIL TF/IDF</h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Query</th>
+            {% for i in range(pjg_doc) %}
+              <th scope="col">tf Doc{{i+1}}</th>
+            {% endfor %}
+            <th scope="col">df</th>
+            <th scope="col">D/df</th>
+            <th scope="col">IDF</th>
+            <th scope="col">IDF + 1</th>
+            {% for i in range(pjg_doc) %}
+              <th scope="col">W Doc{{i+1}}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(pjg_query) %}
+            <tr>
+              <td>{{query[i]}}</td>
+              {% for j in range(pjg_doc) %}
+                <td>{{tf_[i][j]}}</td>
+              {% endfor %}
+              <td>{{df_[i]}}</td>
+              <td>{{div_D[i]}}</td>
+              <td>{{idf_[i]}}</td>
+              <td>{{idf1_[i]}}</td>
+              {% for j in range(pjg_doc) %}
+                <td>{{w_[i][j]}}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+          <tr>
+            <th scope="col"></th>
+            {% for i in range(pjg_doc) %}
+              <th scope="col"></th>
+            {% endfor %}
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">TOTAL BOBOT</th>
+            {% for i in range(pjg_doc) %}
+              <th scope="col">{{tot_w[i]}}</th>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+
+      <h1>HASIL OVERLAP COEFFICIENT</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Doc</th>
+            <th scope="col">Jumlah Irisan</th>
+            <th scope="col">len(Doc)</th>
+            <th scope="col">len(Query)</th>
+            <th scope="col">Min</th>
+            <th scope="col">Irisan/Min</th>
+            <th scope="col">Bobot</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(pjg_doc) %}
+            <tr>
+              <td>{{i+1}}</td>
+              <td>{{count_[i]}}</td>
+              <td>{{len_doc_[i]}}</td>
+              <td>{{len_q_}}</td>
+              <td>{{min_[i]}}</td>
+              <td>{{count_[i]}}/{{min_[i]}}</td>
+              <td>{{w_ovr_[i]}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h1>VECTOR JENIS KATA</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Jenis Kata</th>
+            <th scope="col">Query</th>
+            {% for i in range(pjg_doc) %}
+              <th scope="col">Doc{{i+1}}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(total_m_) %}
+            <tr>
+              <td>{{jenis_kata_[i]}}</td>
+              <td>{{vec_keyword_[i]}}</td>
+              {% for j in range(pjg_doc) %}
+              <td>{{vec_doc_[j][i]}}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h1>HASIL SIMPLE MATCHING COEFFICIENT</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Doc</th>
+            <th scope="col">m00</th>
+            <th scope="col">m01</th>
+            <th scope="col">m10</th>
+            <th scope="col">m11</th>
+            <th scope="col">(m00+m11)/total m</th>
+            <th scope="col">Bobot</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(pjg_doc) %}
+            <tr>
+              <td>{{i+1}}</td>
+              <td>{{m00_[i]}}</td>
+              <td>{{m01_[i]}}</td>
+              <td>{{m10_[i]}}</td>
+              <td>{{m11_[i]}}</td>
+              <td>{{m0011_[i]}}/{{total_m_}}</td>
+              <td>{{w_smc_[i]}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>        
+  </body>
+</html>
